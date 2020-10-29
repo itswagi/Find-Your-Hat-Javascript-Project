@@ -14,12 +14,29 @@ class Field {
   }
   print(){
     console.log(this._board.join('\n'))
+    this._board[0][1] = '*'
+    console.log(this._board.join('\n'))
+  }
+
+  newLocation(){
+    let userInput = prompt('Which direction to move: ')
+    userInput = userInput.toLowerCase()
+    switch (userInput){
+        case 'd':
+            this._verticalPos += 1
+            break
+        case 'u':
+            this._verticalPos -= 1
+            break
+        case 'l':
+            this._horizontalPos -= 1
+        case 'r':
+            this._horizontalPos += 1
+    }
   }
 
   updateLocation(){
-    let userInput = prompt('Which direction to move: ')
-    userInput = userInput.toLowerCase()
-    console.log(userInput)
+      this._board[this._verticalPos][this._horizontalPos] = '*'
   }
 }
 
@@ -30,4 +47,5 @@ const myField = new Field([
 ]);
 
 myField.print()
-myField.updateLocation()
+
+//myField.updateLocation()

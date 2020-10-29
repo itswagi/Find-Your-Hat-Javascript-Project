@@ -14,8 +14,6 @@ class Field {
   }
   print(){
     console.log(this._board.join('\n'))
-    this._board[0][1] = '*'
-    console.log(this._board.join('\n'))
   }
 
   newLocation(){
@@ -37,6 +35,12 @@ class Field {
 
   updateLocation(){
       this._board[this._verticalPos][this._horizontalPos] = '*'
+  }
+
+  checkWinLoss(){
+      if (this._board[this._verticalPos][this._horizontalPos] === 'O'){
+          console.log('Congrats, you found your way!')
+      }
   }
 }
 

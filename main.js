@@ -34,8 +34,6 @@ class Field {
             this._horizontalPos += 1
             break
     }
-    console.log(this._horizontalPos)
-    console.log(this._verticalPos)
   }
 
   updateLocation(){
@@ -65,7 +63,11 @@ class Field {
     this.print()
     this.newLocation()
     this._continueGame = this.checkWinLoss()
-    this.updateLocation()
+    if (this._continueGame == false){
+      break
+    }else {
+      this.updateLocation()
+    } 
    }
  }
 }

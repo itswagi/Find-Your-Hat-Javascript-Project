@@ -12,6 +12,7 @@ class Field {
     this._horizontalPos = 0
     this._verticalPos = 0
     this._continueGame = true
+    this._board[0][0] = pathCharacter
   }
   print(){
     console.log(this._board.join('\n'))
@@ -70,13 +71,35 @@ class Field {
     } 
    }
  }
+
+ static generateField(height, width, percentage){
+    const field = new Array(height).fill(0).map(el => new Array(width))
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        const prob = Math.random();
+        field[y][x] = prob > percentage ? fieldCharacter : hole;
+      }
+    }
+
+    const hatLocation = {
+      x: Math.floor(Math.random() * width),
+      y: Math.floor(Math.random() * height)
+    }
+    while (hatLocation.x === 0 && hatLocation.y === 0) {
+      hatLocation.x = Math.floor(Math.random() * width);
+      hatLocation.y = Math.floor(Math.random() * height);
+    }
+    field[hatLocation.y][hatLocation.x] = hat;
+    return field;
+ }
 }
 
-const myField = new Field([
-  ['*', '░', 'O'],
-  ['░', 'O', '░'],
-  ['░', '^', '░'],
-]);
+//const myField = new Field([
+//  ['*', '░', 'O'],
+//  ['░', 'O', '░'],
+ // ['░', '^', '░'],
+//]);
 
+const myField = new Field(Field.generateField(10, 10, 0.2));
 myField.startGame()
 //myField.updateLocation()

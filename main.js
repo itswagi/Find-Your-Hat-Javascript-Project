@@ -11,6 +11,7 @@ class Field {
     this._board = board
     this._horizontalPos = 0
     this._verticalPos = 0
+    this._continueGame = true
   }
   print(){
     console.log(this._board.join('\n'))
@@ -18,7 +19,7 @@ class Field {
 
   newLocation(){
     let userInput = prompt('Which direction to move: ')
-    userInput = userInput.toLowerCase()
+    userInput =  userInput.toLowerCase()
     switch (userInput){
         case 'd':
             this._verticalPos += 1
@@ -28,9 +29,13 @@ class Field {
             break
         case 'l':
             this._horizontalPos -= 1
+            break
         case 'r':
             this._horizontalPos += 1
+            break
     }
+    console.log(this._horizontalPos)
+    console.log(this._verticalPos)
   }
 
   updateLocation(){
@@ -38,10 +43,31 @@ class Field {
   }
 
   checkWinLoss(){
-      if (this._board[this._verticalPos][this._horizontalPos] === 'O'){
-          console.log('Congrats, you found your way!')
-      }
+    if (this._verticalPos > this._board.length || 
+      this._verticalPos < 0 ||
+      this._horizontalPos > this._board[this._verticalPos].length ||
+      this._horizontalPos < 0){
+        console.log('You fell off the board B)')
+        return false
+    } else if (this._board[this._verticalPos][this._horizontalPos] === '^'){
+      console.log('Congrats, you found your way!')
+      return false
+  } else if (this._board[this._verticalPos][this._horizontalPos] === 'O'){
+      console.log('You fell in a pit. Oops B)')
+      return false
+  } else {
+    return true
   }
+ }
+
+ startGame(){
+   while (this._continueGame == true){
+    this.print()
+    this.newLocation()
+    this._continueGame = this.checkWinLoss()
+    this.updateLocation()
+   }
+ }
 }
 
 const myField = new Field([
@@ -50,6 +76,5 @@ const myField = new Field([
   ['░', '^', '░'],
 ]);
 
-myField.print()
-
+myField.startGame()
 //myField.updateLocation()
